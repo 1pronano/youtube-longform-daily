@@ -3,66 +3,126 @@
   "site_url": "https://1pronano.github.io/youtube-longform-daily/",
   "guide_url": "https://1pronano.github.io/youtube-longform-guide/",
   "schedule_kst": "매일 오후 1시 (13:00 KST)",
+  "hard_gates": {
+    "max_age_days": 90,
+    "min_views": 100000,
+    "min_duration_sec": 480,
+    "max_channel_videos_new": 80,
+    "max_subs_small": 300000,
+    "min_explosion_ratio": 1.5,
+    "mega_subs_block": 3000000
+  },
   "categories": [
     {
       "id": "cat_movie",
       "emoji": "🎬",
       "name": "옛날 외국 영화",
       "short_name": "옛날 영화",
-      "channel_desc": "2010년 이전 옛날 외국 영화(구작) 결말포함 롱폼 해설·리뷰 채널",
+      "preset_name": "영화 리뷰 롱폼",
+      "channel_desc": "2010년 이전 안전 배급사 옛날 외국 영화(구작) 결말포함 롱폼 해설·리뷰 채널 (고속 수창 적합)",
+      "copyright_note": "2010년 이전 구작 위주 · 디즈니/넷플릭스 등 초강력 차단 배급사 회피 · 3~5초 컷 전환 + 좌우반전/배속 + 해설 보이스오버 필수",
       "color": "#4f46e5",
       "bg": "#eef2ff",
       "queries": [
-        "결말포함 옛날 외국 영화 리뷰 20분",
-        "명작 영화 결말포함 복수극 롱폼"
+        "영화 리뷰 결말포함",
+        "결말포함 영화 몰아보기",
+        "외국 영화 결말포함 스릴러",
+        "명작 영화 리뷰 결말포함",
+        "반전 영화 결말포함",
+        "movie recap full story"
       ],
-      "min_duration_sec": 600
+      "fallback_queries": [
+        "영화 요약 결말포함",
+        "액션 영화 결말포함 리뷰",
+        "공포 영화 리뷰 결말포함",
+        "old movie recap explained",
+        "classic movie explained full"
+      ],
+      "min_duration_sec": 480
     },
     {
       "id": "cat_police",
       "emoji": "🚔",
       "name": "미국 경찰 바디캠",
       "short_name": "미국 경찰 바디캠",
-      "channel_desc": "미국 경찰 바디캠(Bodycam) 실제 사건·수사·반전 실화 롱폼 다큐 채널",
+      "preset_name": "미국경찰",
+      "channel_desc": "미국 경찰 바디캠(Bodycam) 실제 사건·체포·심문·반전 실화 롱폼 다큐 채널",
+      "copyright_note": "미국 FOIA(정보공개법) 공공 경찰 바디캠 기반 · 원본 워터마크/타 채널 로고 크롭 필수 · 얼굴 모자이크 및 해설 각색",
       "color": "#2563eb",
       "bg": "#eff6ff",
       "queries": [
-        "미국 경찰 바디캠 실화 풀영상",
-        "police bodycam full footage arrest interrogation"
+        "police bodycam arrest full",
+        "bodycam interrogation twist",
+        "police bodycam footage crazy",
+        "미국 경찰 바디캠",
+        "cop bodycam instant karma",
+        "police chase arrest bodycam"
       ],
-      "min_duration_sec": 600
+      "fallback_queries": [
+        "bodycam footage karens arrested",
+        "police bodycam traffic stop arrest",
+        "bodycam dui arrest full",
+        "real police bodycam full episode"
+      ],
+      "min_duration_sec": 480
     },
     {
       "id": "cat_senior",
       "emoji": "📺",
       "name": "어르신 거실 TV",
       "short_name": "어르신 거실 TV",
-      "channel_desc": "6070 시니어 어르신이 거실 TV로 오래 보는 국민연금·건강·국제정세·역사 롱폼 채널",
+      "preset_name": "인물형 롱폼",
+      "channel_desc": "6070 시니어 어르신이 거실 TV로 오래 보는 국민연금·건강·국제정세·역사·노후 정보 롱폼 채널",
+      "copyright_note": "공공 통계(국민연금공단·건강보험공단·통계청)·역사 기록 기반 100% 자체 해설 제작 · 큰 자막(TV 가독성) + 또박또박 느린 낭독",
       "color": "#16a34a",
       "bg": "#f0fdf4",
       "queries": [
-        "국민연금 건강보험료 시니어 필수 정보",
-        "국제정세 역사 다큐 6070 롱폼"
+        "국민연금 기초연금",
+        "건강보험료 노후 연금",
+        "60대 70대 건강 혈관 치매",
+        "노후 자금 은퇴 생활",
+        "세계사 한국사 역사 이야기",
+        "국제정세 지정학 분석"
       ],
-      "min_duration_sec": 600
+      "fallback_queries": [
+        "시니어 건강 의사 설명",
+        "당뇨 혈압 콜레스테롤 음식",
+        "조선 역사 인물 이야기",
+        "노후 준비 부동산 세금",
+        "중년 사연 라디오"
+      ],
+      "min_duration_sec": 480
     },
     {
       "id": "cat_global",
       "emoji": "🌍",
       "name": "해외 대박 빈집",
       "short_name": "해외 대박 빈집",
-      "channel_desc": "해외에서 수백만 뷰가 터졌지만 한국엔 아직 경쟁이 적은 해외 실화·미스터리·과학·역사 다큐 빈집 롱폼 채널",
+      "preset_name": "VOX",
+      "channel_desc": "해외에서 수십~수백만 뷰가 터졌지만 한국엔 아직 경쟁이 적은 해외 실화·미스터리·과학·역사 다큐 빈집 & 누운 소재 롱폼 채널",
+      "copyright_note": "해외 대박 기획/스토리 구조만 한국어 각색 · 화면은 1:1 물증(공식 문서·지도·뉴스 아카이브·자체 모션그래픽)으로 새로 구성",
       "color": "#d97706",
       "bg": "#fffbeb",
       "queries": [
-        "unbelievable true story documentary full",
-        "bizarre mystery history documentary 2026"
+        "unbelievable true story documentary",
+        "true survival story documentary",
+        "bizarre mystery documentary",
+        "dark history documentary",
+        "insane scam heist documentary",
+        "real life mystery explained"
       ],
-      "min_duration_sec": 600
+      "fallback_queries": [
+        "forgotten history documentary",
+        "crazy true story explained",
+        "unsolved mystery documentary",
+        "deep dive documentary true story"
+      ],
+      "min_duration_sec": 480
     }
   ],
-  "search_per_query": 5,
-  "top_materials_per_category": 3,
-  "max_rising_channels": 6,
+  "search_per_query": 16,
+  "candidates_per_category": 14,
+  "top_materials_per_category": 10,
+  "max_rising_channels": 8,
   "max_deep_dives": 4
 }
