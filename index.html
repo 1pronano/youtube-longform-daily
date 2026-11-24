@@ -1,0 +1,1471 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>유튜브 롱폼 데일리 브리핑 📰 (매일 오후 1시 배달)</title>
+  <style>
+    :root {
+      --bg: #f4f6fb;
+      --surface: #ffffff;
+      --surface-soft: #f8fafc;
+      --text: #18212f;
+      --text-sub: #475569;
+      --text-muted: #64748b;
+      --border: #e2e8f0;
+      --primary: #2563eb;
+      --primary-dark: #1d4ed8;
+      --primary-light: #dbeafe;
+      --gold: #d97706;
+      --gold-bg: #fffbeb;
+      --gold-border: #fde68a;
+      --green: #16a34a;
+      --green-bg: #f0fdf4;
+      --red: #dc2626;
+      --red-bg: #fef2f2;
+      --purple: #7c3aed;
+      --purple-bg: #f5f3ff;
+      --radius: 20px;
+      --radius-sm: 13px;
+      --shadow: 0 8px 26px rgba(15, 23, 42, 0.06);
+      --shadow-hover: 0 14px 34px rgba(37, 99, 235, 0.13);
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: "Pretendard", "Apple SD Gothic Neo", "Malgun Gothic", -apple-system, BlinkMacSystemFont, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.68;
+      font-size: 16.5px;
+      padding-bottom: 90px;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    .container {
+      max-width: 1080px;
+      margin: 0 auto;
+      padding: 24px 18px;
+    }
+
+    /* Newspaper Masthead */
+    .masthead {
+      background: linear-gradient(135deg, #0f172a 0%, #1e3a8a 55%, #2563eb 100%);
+      color: #ffffff;
+      border-radius: 28px;
+      padding: 36px 34px 30px;
+      box-shadow: 0 18px 42px rgba(15, 23, 42, 0.22);
+      margin-bottom: 22px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .masthead::after {
+      content: "📰";
+      position: absolute;
+      right: 28px;
+      top: 20px;
+      font-size: 84px;
+      opacity: 0.14;
+      pointer-events: none;
+    }
+
+    .masthead-top {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      margin-bottom: 16px;
+      padding-bottom: 14px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.18);
+      font-size: 14px;
+    }
+
+    .badge-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 5px 13px;
+      border-radius: 999px;
+      font-size: 13.5px;
+      font-weight: 800;
+    }
+
+    .badge-live {
+      background: #fef08a;
+      color: #854d0e;
+    }
+
+    .badge-glass {
+      background: rgba(255, 255, 255, 0.16);
+      color: #ffffff;
+      backdrop-filter: blur(6px);
+    }
+
+    .guide-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      color: #ffffff;
+      text-decoration: none;
+      background: rgba(255, 255, 255, 0.16);
+      border: 1px solid rgba(255, 255, 255, 0.32);
+      padding: 6px 14px;
+      border-radius: 999px;
+      font-weight: 700;
+      font-size: 13.5px;
+      transition: background 0.18s;
+    }
+
+    .guide-link:hover {
+      background: rgba(255, 255, 255, 0.28);
+    }
+
+    .masthead h1 {
+      font-size: clamp(27px, 4.2vw, 39px);
+      font-weight: 900;
+      letter-spacing: -0.03em;
+      line-height: 1.22;
+      margin-bottom: 10px;
+    }
+
+    .masthead-sub {
+      font-size: 17px;
+      color: rgba(255, 255, 255, 0.9);
+      max-width: 780px;
+    }
+
+    /* Date Archive Bar */
+    .archive-bar {
+      background: var(--surface);
+      border: 1.5px solid var(--border);
+      border-radius: var(--radius);
+      padding: 16px 20px;
+      margin-bottom: 22px;
+      box-shadow: var(--shadow);
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+    }
+
+    .archive-label {
+      font-weight: 800;
+      font-size: 15px;
+      color: var(--text);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .archive-pills {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .date-pill {
+      border: 1.5px solid var(--border);
+      background: var(--surface-soft);
+      color: var(--text-sub);
+      padding: 7px 14px;
+      border-radius: 999px;
+      font-weight: 700;
+      font-size: 14px;
+      cursor: pointer;
+      transition: all 0.16s;
+    }
+
+    .date-pill:hover {
+      border-color: var(--primary);
+      color: var(--primary);
+    }
+
+    .date-pill.active {
+      background: var(--primary);
+      color: #ffffff;
+      border-color: var(--primary);
+      box-shadow: 0 4px 12px rgba(37, 99, 235, 0.28);
+    }
+
+    /* Kid-Friendly Summary Card */
+    .summary-banner {
+      background: linear-gradient(135deg, #fffbeb 0%, #fef3c7 100%);
+      border: 2px solid #fcd34d;
+      border-radius: var(--radius);
+      padding: 24px 26px;
+      margin-bottom: 26px;
+      box-shadow: var(--shadow);
+    }
+
+    .summary-title {
+      font-size: 19px;
+      font-weight: 900;
+      color: #92400e;
+      margin-bottom: 10px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .summary-points {
+      list-style: none;
+      display: grid;
+      gap: 8px;
+    }
+
+    .summary-points li {
+      background: rgba(255, 255, 255, 0.85);
+      border-radius: 12px;
+      padding: 11px 15px;
+      font-size: 15.5px;
+      color: #451a03;
+      border: 1px solid rgba(245, 158, 11, 0.25);
+    }
+
+    /* Quick Nav */
+    .quick-nav {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-bottom: 28px;
+    }
+
+    .quick-nav a {
+      text-decoration: none;
+      background: var(--surface);
+      color: var(--text);
+      border: 1.5px solid var(--border);
+      padding: 10px 16px;
+      border-radius: 999px;
+      font-weight: 800;
+      font-size: 14.5px;
+      transition: all 0.18s;
+      box-shadow: 0 2px 8px rgba(15, 23, 42, 0.04);
+    }
+
+    .quick-nav a:hover {
+      border-color: var(--primary);
+      color: var(--primary);
+      transform: translateY(-2px);
+    }
+
+    /* Section Header */
+    .section-header {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin: 38px 0 18px;
+    }
+
+    .section-num {
+      width: 42px;
+      height: 42px;
+      border-radius: 14px;
+      background: var(--primary);
+      color: #ffffff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 20px;
+      font-weight: 900;
+      flex-shrink: 0;
+    }
+
+    .section-header h2 {
+      font-size: 25px;
+      font-weight: 900;
+      letter-spacing: -0.02em;
+    }
+
+    .section-desc {
+      color: var(--text-sub);
+      margin-bottom: 18px;
+      font-size: 15.5px;
+    }
+
+    /* Filter Tabs */
+    .cat-tabs {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 18px;
+    }
+
+    .cat-tab {
+      border: 1.5px solid var(--border);
+      background: var(--surface);
+      color: var(--text-sub);
+      padding: 8px 15px;
+      border-radius: 999px;
+      font-weight: 800;
+      font-size: 14px;
+      cursor: pointer;
+      transition: all 0.16s;
+    }
+
+    .cat-tab.active {
+      background: var(--text);
+      color: #ffffff;
+      border-color: var(--text);
+    }
+
+    /* Score Table */
+    .table-wrap {
+      background: var(--surface);
+      border: 1.5px solid var(--border);
+      border-radius: var(--radius);
+      overflow-x: auto;
+      box-shadow: var(--shadow);
+      margin-bottom: 24px;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      min-width: 780px;
+    }
+
+    th {
+      background: #f1f5f9;
+      color: #334155;
+      font-weight: 800;
+      font-size: 13.5px;
+      text-align: left;
+      padding: 14px 14px;
+      border-bottom: 1.5px solid var(--border);
+      white-space: nowrap;
+    }
+
+    td {
+      padding: 15px 14px;
+      border-bottom: 1px solid #eef2f6;
+      vertical-align: top;
+      font-size: 14.5px;
+    }
+
+    tr:last-child td { border-bottom: none; }
+    tr:hover td { background: #f8fbff; }
+
+    .rank-badge {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 34px;
+      height: 30px;
+      border-radius: 10px;
+      font-weight: 900;
+      font-size: 14px;
+      background: #e2e8f0;
+      color: #334155;
+    }
+
+    .rank-1 { background: #fef08a; color: #854d0e; }
+    .rank-2 { background: #e2e8f0; color: #1e293b; }
+    .rank-3 { background: #fed7aa; color: #9a3412; }
+
+    .cat-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      padding: 4px 10px;
+      border-radius: 999px;
+      font-size: 12.5px;
+      font-weight: 800;
+      white-space: nowrap;
+    }
+
+    .score-big {
+      font-size: 20px;
+      font-weight: 900;
+      color: var(--primary-dark);
+      line-height: 1.1;
+    }
+
+    .score-sub {
+      font-size: 12px;
+      color: var(--text-muted);
+      margin-top: 4px;
+      white-space: nowrap;
+    }
+
+    .mat-title {
+      font-weight: 800;
+      font-size: 15.5px;
+      color: var(--text);
+      margin-bottom: 6px;
+      line-height: 1.4;
+    }
+
+    .mat-reason {
+      color: var(--text-sub);
+      font-size: 14px;
+      margin-bottom: 6px;
+    }
+
+    .mat-evidence {
+      background: #f0f9ff;
+      border-left: 3px solid #0284c7;
+      padding: 6px 10px;
+      border-radius: 6px;
+      font-size: 13.5px;
+      color: #0c4a6e;
+    }
+
+    .yt-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      text-decoration: none;
+      background: #ef4444;
+      color: #ffffff;
+      padding: 6px 12px;
+      border-radius: 999px;
+      font-size: 12.5px;
+      font-weight: 800;
+      white-space: nowrap;
+      transition: opacity 0.15s;
+    }
+
+    .yt-btn:hover { opacity: 0.88; }
+
+    .meta-chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-top: 6px;
+      font-size: 12px;
+      color: var(--text-muted);
+    }
+
+    .meta-chip {
+      background: #f1f5f9;
+      padding: 2px 8px;
+      border-radius: 6px;
+      font-weight: 700;
+    }
+
+    /* Rising Channels Grid */
+    .channel-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(310px, 1fr));
+      gap: 18px;
+      margin-bottom: 24px;
+    }
+
+    .channel-card {
+      background: var(--surface);
+      border: 1.5px solid var(--border);
+      border-radius: var(--radius);
+      padding: 22px;
+      box-shadow: var(--shadow);
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      transition: transform 0.16s, box-shadow 0.16s;
+    }
+
+    .channel-card:hover {
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-hover);
+    }
+
+    .ch-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 10px;
+    }
+
+    .ch-name {
+      font-size: 19px;
+      font-weight: 900;
+      color: var(--text);
+    }
+
+    .ch-stats {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 8px;
+    }
+
+    .ch-stat {
+      background: var(--surface-soft);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 9px 11px;
+    }
+
+    .ch-stat-lbl {
+      font-size: 11.5px;
+      color: var(--text-muted);
+      font-weight: 700;
+    }
+
+    .ch-stat-val {
+      font-size: 15px;
+      font-weight: 900;
+      color: var(--text);
+      margin-top: 2px;
+    }
+
+    .ch-why {
+      background: var(--gold-bg);
+      border: 1px solid var(--gold-border);
+      border-radius: 12px;
+      padding: 12px 14px;
+      font-size: 14px;
+      color: #78350f;
+    }
+
+    /* Deep Dive Cards */
+    .deep-card {
+      background: var(--surface);
+      border: 1.5px solid var(--border);
+      border-radius: var(--radius);
+      padding: 26px;
+      margin-bottom: 22px;
+      box-shadow: var(--shadow);
+    }
+
+    .deep-head {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 18px;
+      padding-bottom: 14px;
+      border-bottom: 1.5px solid var(--border);
+    }
+
+    .deep-head h3 {
+      font-size: 20px;
+      font-weight: 900;
+      line-height: 1.35;
+    }
+
+    .six-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(290px, 1fr));
+      gap: 12px;
+    }
+
+    .six-box {
+      background: var(--surface-soft);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 14px 16px;
+    }
+
+    .six-box.action-box {
+      grid-column: 1 / -1;
+      background: linear-gradient(135deg, #eff6ff 0%, #dbeafe 100%);
+      border: 1.5px solid #93c5fd;
+    }
+
+    .six-lbl {
+      font-size: 13.5px;
+      font-weight: 900;
+      color: var(--primary-dark);
+      margin-bottom: 6px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .six-box.action-box .six-lbl {
+      color: #1e3a8a;
+      font-size: 15px;
+    }
+
+    .six-txt {
+      font-size: 14.5px;
+      color: var(--text);
+    }
+
+    .footer {
+      margin-top: 48px;
+      text-align: center;
+      color: var(--text-muted);
+      font-size: 14px;
+      padding: 24px;
+      border-top: 1px solid var(--border);
+    }
+
+    @media (max-width: 640px) {
+      .masthead { padding: 24px 20px; }
+      .deep-card { padding: 18px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header class="masthead">
+      <div class="masthead-top">
+        <div class="badge-row">
+          <span class="badge badge-live">🕐 매일 오후 1시 자동 배달</span>
+          <span class="badge badge-glass" id="issue-badge">제1호 · 로딩 중</span>
+          <span class="badge badge-glass" id="engine-badge">Jev 100점 + AI 심층 해부</span>
+        </div>
+        <a class="guide-link" href="https://1pronano.github.io/youtube-longform-guide/" target="_blank" rel="noopener">
+          📘 기존 교과서 가이드 보러가기 →
+        </a>
+      </div>
+      <h1>유튜브 롱폼 데일리 브리핑 📰</h1>
+      <p class="masthead-sub">
+        초등학생도 1분 만에 이해하는 <strong>매일 오후 1시 유튜브 롱폼 신문</strong>!
+        오늘 제일 잘 팔릴 4개 분야 소재(Jev 100점 순) · 막 뜨고 있는 신생 채널 · 떡상 이유 6단 해부까지 한 번에 배달합니다.
+      </p>
+    </header>
+
+    <div class="archive-bar">
+      <div class="archive-label">📅 날짜별 신문 골라보기</div>
+      <div class="archive-pills" id="date-pills"></div>
+    </div>
+
+    <section class="summary-banner">
+      <div class="summary-title">🧒 초등학생도 한 번에 이해하는 오늘의 3줄 요약</div>
+      <ul class="summary-points" id="summary-points"></ul>
+    </section>
+
+    <nav class="quick-nav">
+      <a href="#sec-materials">① 오늘의 4개 분야 추천 소재 (Jev 100점 순)</a>
+      <a href="#sec-channels">② 오늘의 핫한 신생 에셋 채널 추적 🔥</a>
+      <a href="#sec-deep">③ 오늘의 떡상 이유 6단 심층 해부 🔬</a>
+    </nav>
+
+    <!-- Section 1 -->
+    <section id="sec-materials">
+      <div class="section-header">
+        <div class="section-num">1</div>
+        <h2>오늘의 4개 분야 추천 소재 (Jev 100점 높은 순)</h2>
+      </div>
+      <p class="section-desc">
+        <strong>후킹력(30) + 물증 확보(30) + 스토리 몰입(20) + 채널 적합성(20) = 100점 만점</strong>으로 Jev가 직접 채점했어요.
+        제일 점수가 높은 <strong>1등 보물 소재가 맨 위</strong>에 올라와 있습니다!
+      </p>
+
+      <div class="cat-tabs" id="cat-tabs"></div>
+
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>순위</th>
+              <th>분야</th>
+              <th>Jev 점수</th>
+              <th>소재 제목 · 쉬운 선정 근거 · 1:1 물증 포인트</th>
+              <th>원본</th>
+            </tr>
+          </thead>
+          <tbody id="materials-tbody"></tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- Section 2 -->
+    <section id="sec-channels">
+      <div class="section-header">
+        <div class="section-num">2</div>
+        <h2>오늘의 핫한 신생 에셋 채널 추적 🔥</h2>
+      </div>
+      <p class="section-desc">
+        영상 몇 개 안 올렸는데도 조회수가 펑펑 터지고 있는 <strong>요즘 제일 잘나가는 새내기 채널</strong>들이에요.
+        어떻게 시작해서 빨리 컸는지 한눈에 비교해 보세요!
+      </p>
+      <div class="channel-grid" id="channels-grid"></div>
+    </section>
+
+    <!-- Section 3 -->
+    <section id="sec-deep">
+      <div class="section-header">
+        <div class="section-num">3</div>
+        <h2>오늘의 떡상 이유 심층 분석 (6단 해부 🔬)</h2>
+      </div>
+      <p class="section-desc">
+        “왜 하필 이 영상만 조회수가 터졌을까?” 궁금증을 <strong>기획 · 키워드 · 이슈 · 0초 후킹 · 영상미 · 바로 카피할 1줄 액션</strong> 6칸으로 알기 쉽게 쪼개 놓았습니다.
+      </p>
+      <div id="deep-container"></div>
+    </section>
+
+    <footer class="footer">
+      <p><strong>유튜브 롱폼 데일리 브리핑</strong> · 매일 오후 1시(13:00 KST) 자동 수집 · Jev 채점 · AI 심층 분석 · 자동 배포</p>
+      <p style="margin-top:6px;">
+        기존 정본 교과서 링크는 그대로 보존되어 있습니다:
+        <a href="https://1pronano.github.io/youtube-longform-guide/" target="_blank" rel="noopener" style="color:var(--primary);font-weight:700;">
+          https://1pronano.github.io/youtube-longform-guide/
+        </a>
+      </p>
+    </footer>
+  </div>
+
+  <script id="daily-data" type="application/json">{
+  "editions": {
+    "2026-11-24": {
+      "date": "2026-11-24",
+      "issue_no": 1,
+      "generated_at": "15:21 KST",
+      "scoring_badge": "TypeSafe Jev(jev-1.14.0) 100점 실측 + AI 6단 해부",
+      "easy_summary": [
+        "오늘 유튜브 롱폼은 '탐정 놀이터' 같아요. 진짜 경찰 몸카메라(바디캠: 경찰 가슴에 다는 카메라) 영상으로 범인을 쫓는 이야기가 점수 1~3등을 모두 차지했어요.",
+        "점수가 가장 높은 분야는 '미국 경찰 바디캠'이에요(1등 80.7점, 제니의 사건기록). 조회수 1등은 무시받던 왕따 소녀가 퀸카가 되는 영화 리뷰예요(디토이야기, 약 272만 회).",
+        "바로 써먹을 꿀팁: 제목에 '이 금액', '결말포함', '실화'처럼 궁금증의 문을 살짝만 열어 두세요. 화면에는 진짜 자료(바디캠 원본, 공식 발표문)를 대사 줄마다 1:1로 붙이면 사람들이 끝까지 봐요."
+      ],
+      "materials": [
+        {
+          "id": "cat_police_H1PiQBBs9bU",
+          "video_id": "H1PiQBBs9bU",
+          "category_id": "cat_police",
+          "category_name": "미국 경찰 바디캠",
+          "category_emoji": "🚔",
+          "category_color": "#2563eb",
+          "category_bg": "#eff6ff",
+          "channel_desc": "미국 경찰 바디캠(Bodycam) 실제 사건·수사·반전 실화 롱폼 다큐 채널",
+          "title": "트레일러 안에서 토막난 시x이 발견됐다(미국 실화 바디캠)",
+          "url": "https://www.youtube.com/watch?v=H1PiQBBs9bU",
+          "channel": "제니의 사건기록",
+          "channel_url": "https://www.youtube.com/channel/UChBmrRNoX1Q8gWvuh57xHsg",
+          "channel_follower_count": null,
+          "view_count": 420816,
+          "duration": 1454,
+          "duration_str": "24분 14초",
+          "upload_date": "",
+          "description": "2021년 미국 유타주 테일러스빌에서 발생한 충격적인 사건. 15세 소년 닉 베테츠닉은 지인의 트레일러 안에서 숨진 채 발견됩니다.",
+          "scores": {
+            "hook": 27.0,
+            "evidence": 21.3,
+            "story": 14.6,
+            "fit": 17.8
+          },
+          "total_score": 80.7,
+          "reason": "'트레일러 안에서 발견됐다'는 제목이 잠긴 상자 같아서 안에 무엇이 있었는지 열어 보고 싶게 만들어요. '실화 바디캠'이라 지어낸 이야기가 아니라는 믿음도 줘요. 24분짜리인데 약 42만 회가 나왔어요.",
+          "evidence_tip": "경찰이 트레일러 문을 처음 여는 바디캠 원본 장면과 사건 장소 지도를 나란히 보여 주세요. 잔인한 부분은 꼭 흐림 처리해요."
+        },
+        {
+          "id": "cat_police_HDM1ObChPL8",
+          "video_id": "HDM1ObChPL8",
+          "category_id": "cat_police",
+          "category_name": "미국 경찰 바디캠",
+          "category_emoji": "🚔",
+          "category_color": "#2563eb",
+          "category_bg": "#eff6ff",
+          "channel_desc": "미국 경찰 바디캠(Bodycam) 실제 사건·수사·반전 실화 롱폼 다큐 채널",
+          "title": "경찰관에게 중상 입힌 가면 강도, 미국 경찰 총력 추적 | Body Cam",
+          "url": "https://www.youtube.com/watch?v=HDM1ObChPL8",
+          "channel": "Discovery Korea 디스커버리 코리아",
+          "channel_url": "https://www.youtube.com/channel/UCI6bxkc4WHwIHLis1Hg2jTw",
+          "channel_follower_count": null,
+          "view_count": 88872,
+          "duration": 1129,
+          "duration_str": "18분 49초",
+          "upload_date": "",
+          "description": "어둠이 내려앉은 숲, 열화상 화면 위로 사람의 형체가 떠오른다. 가면을 쓴 주유소 강도, 그리고 중상을 입은 경찰관. 헬기 열화상 ...",
+          "scores": {
+            "hook": 24.0,
+            "evidence": 23.7,
+            "story": 14.4,
+            "fit": 17.8
+          },
+          "total_score": 79.9,
+          "reason": "경찰관이 크게 다쳤다는 사실 때문에 '이번엔 꼭 잡아야 해!' 하는 응원하는 마음이 생겨요. 술래잡기가 어떻게 끝나는지 끝까지 보고 싶어져요.",
+          "evidence_tip": "가면 쓴 강도가 찍힌 바디캠·CCTV 화면과 추적 경로를 그린 지도를 순서대로 붙여 주세요."
+        },
+        {
+          "id": "cat_police_2mP52sc3EWg",
+          "video_id": "2mP52sc3EWg",
+          "category_id": "cat_police",
+          "category_name": "미국 경찰 바디캠",
+          "category_emoji": "🚔",
+          "category_color": "#2563eb",
+          "category_bg": "#eff6ff",
+          "channel_desc": "미국 경찰 바디캠(Bodycam) 실제 사건·수사·반전 실화 롱폼 다큐 채널",
+          "title": "Full Interrogation of Navy's Bree Kuhn - plus BodyCam Confessions",
+          "url": "https://www.youtube.com/watch?v=2mP52sc3EWg",
+          "channel": "Deep Dive True Crime",
+          "channel_url": "https://www.youtube.com/channel/UCb0F8WzHWqMT6g9l07nFn_Q",
+          "channel_follower_count": null,
+          "view_count": 39032,
+          "duration": 5678,
+          "duration_str": "1시간 34분",
+          "upload_date": "",
+          "description": "Full playlist: https://www.youtube.com/playlist?list=PLFQi_ZV2IuwLzSZRhttbP0b6PCHMiec7- Bree Kuhn killed her husband, ...",
+          "scores": {
+            "hook": 25.5,
+            "evidence": 21.9,
+            "story": 14.6,
+            "fit": 17.4
+          },
+          "total_score": 79.4,
+          "reason": "취조실(경찰이 용의자에게 질문하는 방) 영상은 진실이 드러나는 순간을 직접 지켜보는 '진실 게임' 같아요. 그래서 1시간 34분이나 되는데도 79.4점을 받았어요.",
+          "evidence_tip": "취조실 원본 영상의 핵심 대답 장면과 바디캠 자백 장면을 한 화면에 나란히 붙이고, 중요한 말에는 자막으로 표시해 주세요."
+        },
+        {
+          "id": "cat_global_B9OVW3Oceoc",
+          "video_id": "B9OVW3Oceoc",
+          "category_id": "cat_global",
+          "category_name": "해외 대박 빈집",
+          "category_emoji": "🌍",
+          "category_color": "#d97706",
+          "category_bg": "#fffbeb",
+          "channel_desc": "해외에서 수백만 뷰가 터졌지만 한국엔 아직 경쟁이 적은 해외 실화·미스터리·과학·역사 다큐 빈집 롱폼 채널",
+          "title": "Shipwreck Horror: The unbelievable fight to survive | Sunday Night Archive",
+          "url": "https://www.youtube.com/watch?v=B9OVW3Oceoc",
+          "channel": "7 News Spotlight",
+          "channel_url": "https://www.youtube.com/channel/UCSgeCjcPYYZXR62Cykv43sA",
+          "channel_follower_count": null,
+          "view_count": 825402,
+          "duration": 2762,
+          "duration_str": "46분 02초",
+          "upload_date": "",
+          "description": "When a ship sank off the coast of Tasmania, ten men were left stranded at sea, facing unimaginable horrors as they watched each ...",
+          "scores": {
+            "hook": 24.3,
+            "evidence": 18.6,
+            "story": 15.6,
+            "fit": 18.0
+          },
+          "total_score": 76.5,
+          "reason": "배가 부서진 바다에서 살아남는 이야기는 '나라면 어떻게 버틸까?' 하고 상상하게 만드는 생존 게임 같아요. 분류 이름처럼 아직 한국어로 다루는 사람이 적은 '빈집(경쟁이 적은 분야)' 소재예요.",
+          "evidence_tip": "실제 난파 현장 사진, 당시 뉴스 화면, 생존자 인터뷰 장면을 이야기 순서대로 1:1로 붙여 주세요."
+        },
+        {
+          "id": "cat_movie_YaMH4aRzgHU",
+          "video_id": "YaMH4aRzgHU",
+          "category_id": "cat_movie",
+          "category_name": "옛날 외국 영화",
+          "category_emoji": "🎬",
+          "category_color": "#4f46e5",
+          "category_bg": "#eef2ff",
+          "channel_desc": "2010년 이전 옛날 외국 영화(구작) 결말포함 롱폼 해설·리뷰 채널",
+          "title": "6공주에게 무시받던 왕따 소녀가 하루아침에 잘나가는 퀸카가 되면 벌어지는 일 [영화리뷰/결말포함]",
+          "url": "https://www.youtube.com/watch?v=YaMH4aRzgHU",
+          "channel": "디토이야기",
+          "channel_url": "https://www.youtube.com/channel/UCnabt_BunUVVk1PcSd8CO9Q",
+          "channel_follower_count": null,
+          "view_count": 2718338,
+          "duration": 1136,
+          "duration_str": "18분 56초",
+          "upload_date": "",
+          "description": "완벽한 그녀에게 딱 한가지 없는 것(13 Going On 30), 2004] #제니퍼가너 #마크러팔로 - 본 리뷰 영상은 제가 직접 대본을 작성하고 ...",
+          "scores": {
+            "hook": 24.0,
+            "evidence": 22.2,
+            "story": 12.2,
+            "fit": 16.2
+          },
+          "total_score": 74.6,
+          "reason": "무시받던 아이가 하루아침에 인기 짱이 되는 건 '미운 오리 새끼가 백조가 되는' 이야기라 누구나 속이 시원해져요. 그래서 오늘 목록에서 조회수 1등(약 272만 회)이에요.",
+          "evidence_tip": "왕따를 당하던 장면과 퀸카가 된 장면을 화면 반반으로 나눠서 '전과 후'를 한눈에 보여 주세요."
+        },
+        {
+          "id": "cat_global_gyQqodlfLiA",
+          "video_id": "gyQqodlfLiA",
+          "category_id": "cat_global",
+          "category_name": "해외 대박 빈집",
+          "category_emoji": "🌍",
+          "category_color": "#d97706",
+          "category_bg": "#fffbeb",
+          "channel_desc": "해외에서 수백만 뷰가 터졌지만 한국엔 아직 경쟁이 적은 해외 실화·미스터리·과학·역사 다큐 빈집 롱폼 채널",
+          "title": "Stone Age Temple Mystery | Full Documentary | NOVA | PBS",
+          "url": "https://www.youtube.com/watch?v=gyQqodlfLiA",
+          "channel": "NOVA PBS Official",
+          "channel_url": "https://www.youtube.com/channel/UCjHz5SVHeMT0AViCYZvsGDA",
+          "channel_follower_count": null,
+          "view_count": 1301713,
+          "duration": 3235,
+          "duration_str": "53분 55초",
+          "upload_date": "",
+          "description": "Surprising evidence at the world's oldest temple overturns our understanding of human history. Official website: ...",
+          "scores": {
+            "hook": 23.7,
+            "evidence": 25.8,
+            "story": 6.8,
+            "fit": 17.4
+          },
+          "total_score": 73.7,
+          "reason": "'석기시대(아주아주 옛날) 신전의 비밀'은 보물지도처럼 '누가, 왜 만들었지?' 하는 궁금증을 계속 만들어요. 54분짜리 다큐인데도 약 130만 회예요.",
+          "evidence_tip": "실제 유적지의 돌기둥 사진, 위치 지도, 발굴 장면을 순서대로 보여 주세요."
+        },
+        {
+          "id": "cat_movie_TwcEGyurMF4",
+          "video_id": "TwcEGyurMF4",
+          "category_id": "cat_movie",
+          "category_name": "옛날 외국 영화",
+          "category_emoji": "🎬",
+          "category_color": "#4f46e5",
+          "category_bg": "#eef2ff",
+          "channel_desc": "2010년 이전 옛날 외국 영화(구작) 결말포함 롱폼 해설·리뷰 채널",
+          "title": "대부분이 모르는.. 덴젤 워싱턴의 미스터리 스릴러 수작 (결말포함)",
+          "url": "https://www.youtube.com/watch?v=TwcEGyurMF4",
+          "channel": "고체극장",
+          "channel_url": "https://www.youtube.com/channel/UC-ZF42znvkbm83ovdmJY28Q",
+          "channel_follower_count": null,
+          "view_count": 976136,
+          "duration": 2161,
+          "duration_str": "36분 01초",
+          "upload_date": "",
+          "description": "블루 데블 Devil In A Blue Dress, 1995 미국 감독 : 칼 프랭클린 출연 : 덴젤 워싱턴, 톰 시즈모어, 제니퍼 빌즈, 돈 치들 등 수상내역 ...",
+          "scores": {
+            "hook": 15.6,
+            "evidence": 24.3,
+            "story": 11.8,
+            "fit": 18.0
+          },
+          "total_score": 69.7,
+          "reason": "'대부분이 모르는'이라는 말은 '나만 아는 숨은 맛집'을 찾은 기분을 줘요. 유명 배우 덴젤 워싱턴의 이름이 믿음도 줘요(약 98만 회).",
+          "evidence_tip": "덴젤 워싱턴이 나오는 핵심 장면과 단서가 나오는 장면을 하나씩 짚어 가며 보여 주세요."
+        },
+        {
+          "id": "cat_global_XZDqjcAVOyo",
+          "video_id": "XZDqjcAVOyo",
+          "category_id": "cat_global",
+          "category_name": "해외 대박 빈집",
+          "category_emoji": "🌍",
+          "category_color": "#d97706",
+          "category_bg": "#fffbeb",
+          "channel_desc": "해외에서 수백만 뷰가 터졌지만 한국엔 아직 경쟁이 적은 해외 실화·미스터리·과학·역사 다큐 빈집 롱폼 채널",
+          "title": "A Normal Day Turned Into a Fight for Survival (4K Documentary)",
+          "url": "https://www.youtube.com/watch?v=XZDqjcAVOyo",
+          "channel": "Extraordinary People",
+          "channel_url": "https://www.youtube.com/channel/UCeGhFqGO23wXnw30TzpVlmQ",
+          "channel_follower_count": null,
+          "view_count": 421963,
+          "duration": 2669,
+          "duration_str": "44분 29초",
+          "upload_date": "",
+          "description": "What started as a peaceful Bank Holiday quickly turned into a series of life changing events no one could have predicted. From a ...",
+          "scores": {
+            "hook": 20.1,
+            "evidence": 18.3,
+            "story": 12.8,
+            "fit": 15.6
+          },
+          "total_score": 66.8,
+          "reason": "'평범한 하루가 생존 싸움으로 바뀌었다'는 말을 들으면 '나한테도 생길 수 있겠다'는 생각이 들어서 손에 땀을 쥐게 돼요.",
+          "evidence_tip": "사고 전의 평범한 모습과 사고 순간의 실제 영상·사진을 앞뒤로 붙여 차이를 보여 주세요."
+        },
+        {
+          "id": "cat_senior_aT5vUtQ-yU4",
+          "video_id": "aT5vUtQ-yU4",
+          "category_id": "cat_senior",
+          "category_name": "어르신 거실 TV",
+          "category_emoji": "📺",
+          "category_color": "#16a34a",
+          "category_bg": "#f0fdf4",
+          "channel_desc": "6070 시니어 어르신이 거실 TV로 오래 보는 국민연금·건강·국제정세·역사 롱폼 채널",
+          "title": "2026년 기초연금 기준 발표! 62~69년생, 국민연금 이 금액 넘으면 기초연금 한 푼도 없어요! 슬기로운 노후생활 I 시니어경제 I 노후자금",
+          "url": "https://www.youtube.com/watch?v=aT5vUtQ-yU4",
+          "channel": "슬기로운 노후생활",
+          "channel_url": "https://www.youtube.com/channel/UCGpyXOh878_C77DzemlGbeA",
+          "channel_follower_count": null,
+          "view_count": 288,
+          "duration": 682,
+          "duration_str": "11분 22초",
+          "upload_date": "",
+          "description": "1962~1969년생 필수 시청! 국민연금 이 금액 넘으면 기초연금 한 푸도 못 받습니다! 월 34만원(연 408만원) 기초연금 탈락 위기! 건강 ...",
+          "scores": {
+            "hook": 24.0,
+            "evidence": 20.4,
+            "story": 4.0,
+            "fit": 18.2
+          },
+          "total_score": 66.6,
+          "reason": "'기초연금 한 푼도 없어요'는 우리 집 생활비 통장에 바로 걸린 이야기라 어르신들이 꼭 확인하고 싶어 해요. 다만 이 영상의 조회수는 아직 288회예요. 주제는 좋지만 채널은 아직 작아요.",
+          "evidence_tip": "보건복지부나 국민연금공단의 공식 발표문·안내 표를 화면에 띄우고, '이 금액'에 해당하는 숫자에 동그라미를 쳐 주세요."
+        },
+        {
+          "id": "cat_senior_x8xekxiTt4Q",
+          "video_id": "x8xekxiTt4Q",
+          "category_id": "cat_senior",
+          "category_name": "어르신 거실 TV",
+          "category_emoji": "📺",
+          "category_color": "#16a34a",
+          "category_bg": "#f0fdf4",
+          "channel_desc": "6070 시니어 어르신이 거실 TV로 오래 보는 국민연금·건강·국제정세·역사 롱폼 채널",
+          "title": "63년~70년생 국민연금, '이 금액' 넘어가면 '건보료 폭탄' 맞습니다! (60년대생 필독)",
+          "url": "https://www.youtube.com/watch?v=x8xekxiTt4Q",
+          "channel": "시니어닷컴",
+          "channel_url": "https://www.youtube.com/channel/UCpusmm1X_kqJmluqEDOWU5g",
+          "channel_follower_count": null,
+          "view_count": 413275,
+          "duration": 1006,
+          "duration_str": "16분 46초",
+          "upload_date": "",
+          "description": "국민연금 신청, 단 1년 차이로 평생 수천만 원 이상 손해 볼 수 있습니다! 특히 '건강보험료'를 생각 안 하고 연금을 신청하셨다가는 매달 ...",
+          "scores": {
+            "hook": 25.2,
+            "evidence": 17.1,
+            "story": 5.0,
+            "fit": 18.6
+          },
+          "total_score": 65.9,
+          "reason": "'건보료(건강보험료) 폭탄'이라는 말은 '내 돈이 갑자기 빠져나갈 수도 있다'는 걱정을 건드려요. 63~70년생이라면 안 볼 수가 없어요(약 41만 회).",
+          "evidence_tip": "국민건강보험공단의 피부양자(가족 보험에 함께 올라간 사람) 기준 안내 화면을 띄우고, 기준 금액을 넘는 예시를 표로 보여 주세요."
+        },
+        {
+          "id": "cat_movie_h0kiNCoJdWw",
+          "video_id": "h0kiNCoJdWw",
+          "category_id": "cat_movie",
+          "category_name": "옛날 외국 영화",
+          "category_emoji": "🎬",
+          "category_color": "#4f46e5",
+          "category_bg": "#eef2ff",
+          "channel_desc": "2010년 이전 옛날 외국 영화(구작) 결말포함 롱폼 해설·리뷰 채널",
+          "title": "19세기 런던의 크리스마스 모습이 생생하게 펼쳐지는, 모두가 사랑하는 고전 명작 [영화리뷰/결말포함]",
+          "url": "https://www.youtube.com/watch?v=h0kiNCoJdWw",
+          "channel": "디토이야기",
+          "channel_url": "https://www.youtube.com/channel/UCnabt_BunUVVk1PcSd8CO9Q",
+          "channel_follower_count": null,
+          "view_count": 981618,
+          "duration": 2111,
+          "duration_str": "35분 11초",
+          "upload_date": "",
+          "description": "[크리스마스 캐롤 (CHRISTMAS CAROL), 1984] #조지C.스콧 #데이비드워너 #에드워드우드워드 #안소니월터스 - 본 리뷰 영상은 ...",
+          "scores": {
+            "hook": 7.5,
+            "evidence": 24.6,
+            "story": 13.6,
+            "fit": 18.0
+          },
+          "total_score": 63.7,
+          "reason": "크리스마스를 앞둔 11월 말이라, 19세기 런던 크리스마스를 담은 고전 명작은 겨울철 따뜻한 코코아 같은 계절 소재예요(약 98만 회).",
+          "evidence_tip": "영화 속 눈 내리는 런던 거리와 크리스마스 장면을 이야기 흐름대로 보여 주세요."
+        },
+        {
+          "id": "cat_senior_slG1zlMCoYw",
+          "video_id": "slG1zlMCoYw",
+          "category_id": "cat_senior",
+          "category_name": "어르신 거실 TV",
+          "category_emoji": "📺",
+          "category_color": "#16a34a",
+          "category_bg": "#f0fdf4",
+          "channel_desc": "6070 시니어 어르신이 거실 TV로 오래 보는 국민연금·건강·국제정세·역사 롱폼 채널",
+          "title": "2026년 국민연금 안 보면 후회합니다! 62년~69년생 필수시청!｜'이 금액' 넘으면 건보료 폭탄｜인상 개편안 확정｜이렇게 해야 더 받습니다 #국민연금 #시니어",
+          "url": "https://www.youtube.com/watch?v=slG1zlMCoYw",
+          "channel": "실버로그라디오",
+          "channel_url": "https://www.youtube.com/channel/UCbw7dwYxwrUNGRMHas_Tpcg",
+          "channel_follower_count": null,
+          "view_count": 11673,
+          "duration": 2388,
+          "duration_str": "39분 48초",
+          "upload_date": "",
+          "description": "국민연금 #건강보험료 #건보료 폭탄 #피부양자 #노후준비 #연금정보 #시니어정보 #기초연금 #주택연금 #노후재테크 #연금전략 ...",
+          "scores": {
+            "hook": 22.8,
+            "evidence": 18.9,
+            "story": 3.0,
+            "fit": 18.6
+          },
+          "total_score": 63.3,
+          "reason": "'안 보면 후회합니다', '필수시청' 같은 말은 '이건 꼭 해야 하는 숙제'라는 느낌을 줘서 어르신들이 눌러 보게 만들어요(약 1.2만 회).",
+          "evidence_tip": "공식 개편안 발표 자료 화면을 띄우고, '이렇게 해야 더 받는' 방법을 단계별 표로 붙여 주세요."
+        }
+      ],
+      "rising_channels": [
+        {
+          "channel_name": "고체극장",
+          "channel_url": "https://www.youtube.com/channel/UC-ZF42znvkbm83ovdmJY28Q",
+          "category_id": "cat_movie",
+          "category_name": "옛날 외국 영화",
+          "category_emoji": "🎬",
+          "category_color": "#4f46e5",
+          "category_bg": "#eef2ff",
+          "created_info": "활발한 롱폼 채널",
+          "video_count": 30,
+          "video_count_str": "30개+",
+          "subscribers_str": "비공개/집계중",
+          "avg_views": 558200,
+          "avg_views_str": "55.8만회",
+          "top_video_title": "대부분이 모르는.. 덴젤 워싱턴의 미스터리 스릴러 수작 (결말포함)",
+          "top_video_url": "https://www.youtube.com/watch?v=TwcEGyurMF4",
+          "easy_analysis": "평균 조회수 약 55.8만 회로 오늘 채널 중 1등이에요. '대부분이 모르는' 숨은 명작을 꺼내 주는 '영화 보물찾기 가게'라 사람들이 계속 찾아와요."
+        },
+        {
+          "channel_name": "NOVA PBS Official",
+          "channel_url": "https://www.youtube.com/channel/UCjHz5SVHeMT0AViCYZvsGDA",
+          "category_id": "cat_global",
+          "category_name": "해외 대박 빈집",
+          "category_emoji": "🌍",
+          "category_color": "#d97706",
+          "category_bg": "#fffbeb",
+          "created_info": "활발한 롱폼 채널",
+          "video_count": 30,
+          "video_count_str": "30개+",
+          "subscribers_str": "비공개/집계중",
+          "avg_views": 347733,
+          "avg_views_str": "34.8만회",
+          "top_video_title": "Stone Age Temple Mystery | Full Documentary | NOVA | PBS",
+          "top_video_url": "https://www.youtube.com/watch?v=gyQqodlfLiA",
+          "easy_analysis": "미국 공영방송 PBS의 과학 다큐 채널로 평균 약 34.8만 회가 나와요. 옛날 신전의 비밀 같은 수수께끼를 과학으로 풀어 주는 '수수께끼 선생님'이라 믿고 봐요."
+        },
+        {
+          "channel_name": "제니의 사건기록",
+          "channel_url": "https://www.youtube.com/channel/UChBmrRNoX1Q8gWvuh57xHsg",
+          "category_id": "cat_police",
+          "category_name": "미국 경찰 바디캠",
+          "category_emoji": "🚔",
+          "category_color": "#2563eb",
+          "category_bg": "#eff6ff",
+          "created_info": "활발한 롱폼 채널",
+          "video_count": 30,
+          "video_count_str": "30개+",
+          "subscribers_str": "비공개/집계중",
+          "avg_views": 227866,
+          "avg_views_str": "22.8만회",
+          "top_video_title": "트레일러 안에서 토막난 시x이 발견됐다(미국 실화 바디캠)",
+          "top_video_url": "https://www.youtube.com/watch?v=H1PiQBBs9bU",
+          "easy_analysis": "미국에서 실제로 일어난 바디캠 사건을 한국어 제목과 해설로 차근차근 풀어 주는 '사건 이야기꾼'이에요. 평균 약 22.8만 회가 나와요."
+        },
+        {
+          "channel_name": "디토이야기",
+          "channel_url": "https://www.youtube.com/channel/UCnabt_BunUVVk1PcSd8CO9Q",
+          "category_id": "cat_movie",
+          "category_name": "옛날 외국 영화",
+          "category_emoji": "🎬",
+          "category_color": "#4f46e5",
+          "category_bg": "#eef2ff",
+          "created_info": "활발한 롱폼 채널",
+          "video_count": 30,
+          "video_count_str": "30개+",
+          "subscribers_str": "비공개/집계중",
+          "avg_views": 213666,
+          "avg_views_str": "21.4만회",
+          "top_video_title": "6공주에게 무시받던 왕따 소녀가 하루아침에 잘나가는 퀸카가 되면 벌어지는 일 [영화리뷰/결말포함]",
+          "top_video_url": "https://www.youtube.com/watch?v=YaMH4aRzgHU",
+          "easy_analysis": "평균은 약 21.4만 회인데 왕따 소녀 영화 한 편이 약 272만 회로 크게 터졌어요. 영화를 결말까지 짧게 들려주는 '영화 요약 동화책' 같은 채널이에요."
+        },
+        {
+          "channel_name": "Discovery Korea 디스커버리 코리아",
+          "channel_url": "https://www.youtube.com/channel/UCI6bxkc4WHwIHLis1Hg2jTw",
+          "category_id": "cat_police",
+          "category_name": "미국 경찰 바디캠",
+          "category_emoji": "🚔",
+          "category_color": "#2563eb",
+          "category_bg": "#eff6ff",
+          "created_info": "활발한 롱폼 채널",
+          "video_count": 30,
+          "video_count_str": "30개+",
+          "subscribers_str": "비공개/집계중",
+          "avg_views": 137927,
+          "avg_views_str": "13.8만회",
+          "top_video_title": "경찰관에게 중상 입힌 가면 강도, 미국 경찰 총력 추적 | Body Cam",
+          "top_video_url": "https://www.youtube.com/watch?v=HDM1ObChPL8",
+          "easy_analysis": "유명한 디스커버리의 한국 채널이라 이름만으로 믿음이 가요. 경찰 바디캠 추적 이야기로 평균 약 13.8만 회를 모아요."
+        },
+        {
+          "channel_name": "7 News Spotlight",
+          "channel_url": "https://www.youtube.com/channel/UCSgeCjcPYYZXR62Cykv43sA",
+          "category_id": "cat_global",
+          "category_name": "해외 대박 빈집",
+          "category_emoji": "🌍",
+          "category_color": "#d97706",
+          "category_bg": "#fffbeb",
+          "created_info": "활발한 롱폼 채널",
+          "video_count": 30,
+          "video_count_str": "30개+",
+          "subscribers_str": "비공개/집계중",
+          "avg_views": 121034,
+          "avg_views_str": "12.1만회",
+          "top_video_title": "Shipwreck Horror: The unbelievable fight to survive | Sunday Night Archive",
+          "top_video_url": "https://www.youtube.com/watch?v=B9OVW3Oceoc",
+          "easy_analysis": "해외 방송사의 옛 방송(Sunday Night Archive)을 다시 꺼내 보여 주는 '방송 창고' 같은 채널이에요. 실화 생존 이야기로 평균 약 12.1만 회를 모아요."
+        }
+      ],
+      "deep_dives": [
+        {
+          "category_id": "cat_movie",
+          "category_name": "옛날 외국 영화",
+          "category_emoji": "🎬",
+          "category_color": "#4f46e5",
+          "category_bg": "#eef2ff",
+          "title": "6공주에게 무시받던 왕따 소녀가 하루아침에 잘나가는 퀸카가 되면 벌어지는 일 [영화리뷰/결말포함]",
+          "channel": "디토이야기",
+          "view_count": 2718338,
+          "url": "https://www.youtube.com/watch?v=YaMH4aRzgHU",
+          "planning": "'무시받던 주인공이 하루아침에 역전한다'는 미운 오리 새끼 공식을 19분 안에 결말까지 담았어요. 짧은 시간 안에 속 시원한 이야기 한 바퀴를 다 보여 주는 게 비결이에요.",
+          "keywords": "'6공주'(숫자로 상대가 얼마나 센지 보여 줌), '왕따 소녀'(약한 사람에게 마음이 감), '하루아침에'(어떻게 그렇게 빨리 바뀌었는지 궁금해짐), '퀸카'(목표가 한눈에 보임), '결말포함'(끝까지 다 알려 준다는 약속)",
+          "issue": "학교나 회사에서 무시받아 본 기억은 누구에게나 있어요. 그래서 '나도 저렇게 역전하고 싶다'는 대리 만족(남이 대신 이뤄 줘서 느끼는 기쁨)을 찾아요.",
+          "hook_0s": "첫 화면에 주인공이 무시받는 가장 서러운 장면을 보여 주세요. 그다음 '그런데 하루아침에 모든 게 뒤집힙니다'라는 한 줄로 결말을 궁금하게 만드세요.",
+          "visual_style": "인물마다 이름표 자막을 달아 6명이 헷갈리지 않게 하세요. 역전하는 장면에서는 전과 후 화면을 나란히 붙여 변화를 한눈에 보여 주세요.",
+          "copy_action": "오늘 '약자가 역전하는' 줄거리의 옛날 외국 영화 1편을 골라 '무시받던 OO가 하루아침에 OO가 되면 벌어지는 일 [결말포함]' 제목 틀로 대본 뼈대를 써 보기."
+        },
+        {
+          "category_id": "cat_police",
+          "category_name": "미국 경찰 바디캠",
+          "category_emoji": "🚔",
+          "category_color": "#2563eb",
+          "category_bg": "#eff6ff",
+          "title": "트레일러 안에서 토막난 시x이 발견됐다(미국 실화 바디캠)",
+          "channel": "제니의 사건기록",
+          "view_count": 420816,
+          "url": "https://www.youtube.com/watch?v=H1PiQBBs9bU",
+          "planning": "바디캠 영상은 시간 순서대로 따라가기만 해도 '탐정 일기'처럼 이야기가 돼요. 신고, 현장 도착, 발견, 추적 순서로 판을 짜는 게 비결이에요.",
+          "keywords": "'트레일러 안에서'(닫힌 공간이라 궁금함), '발견됐다'(무엇이? 하는 물음표가 생김), '미국 실화'(진짜라는 믿음), '바디캠'(경찰 눈으로 직접 보는 느낌)",
+          "issue": "뉴스로는 결과만 알 수 있어요. 바디캠은 그 순간 현장에 같이 서 있는 것처럼 느끼게 해 줘서 '실제로는 어땠을까?'가 궁금해져요.",
+          "hook_0s": "0초에 트레일러 문 앞 바디캠 장면을 멈춰 세우세요. 그리고 '이 문 안에서 경찰이 본 것은…' 하고 말을 끊어 다음 장면이 궁금하게 만드세요(잔인한 장면은 흐림 처리).",
+          "visual_style": "바디캠 원본 위에 시간과 장소 자막을 작게 달고, 사건 장소 지도 같은 실제 자료를 대사 줄마다 1:1로 붙이세요. 원본만 틀지 말고 내 해설과 지도를 꼭 섞어야 재사용 콘텐츠(남의 영상을 그대로 올린 것)로 찍히지 않아요.",
+          "copy_action": "오늘 미국 경찰이 공개한 바디캠 사건 1개를 골라 '신고, 도착, 발견, 추적' 4칸 표로 장면 순서를 정리해 보기."
+        },
+        {
+          "category_id": "cat_senior",
+          "category_name": "어르신 거실 TV",
+          "category_emoji": "📺",
+          "category_color": "#16a34a",
+          "category_bg": "#f0fdf4",
+          "title": "2026년 기초연금 기준 발표! 62~69년생, 국민연금 이 금액 넘으면 기초연금 한 푼도 없어요! 슬기로운 노후생활 I 시니어경제 I 노후자금",
+          "channel": "슬기로운 노후생활",
+          "view_count": 288,
+          "url": "https://www.youtube.com/watch?v=aT5vUtQ-yU4",
+          "planning": "'2026년 기준 발표'라는 새 소식에 '62~69년생'처럼 나이를 딱 집어서 시청자가 '어, 내 얘기네!' 하고 멈추게 판을 짰어요. 다만 이 영상은 아직 288회예요. 같은 주제로 약 41만 회가 나온 '시니어닷컴' 영상의 제목과 구성을 나란히 비교해 보는 게 좋아요.",
+          "keywords": "'2026년'(최신 소식), '62~69년생'(내 나이가 콕 찍힘), '이 금액'(숫자를 숨겨서 궁금함), '한 푼도 없어요'(손해 볼까 걱정됨), '기초연금'(어르신 생활비와 바로 연결)",
+          "issue": "연금은 어르신들에게 '매달 들어오는 생활비 통장'이에요. 기준이 바뀌면 내 돈이 줄어들까 봐 걱정돼서 꼭 확인하고 싶어 해요.",
+          "hook_0s": "첫 화면에 '62~69년생이라면 지금 멈추세요'와 '이 금액'이 들어간 큰 자막을 띄우세요. 15초 안에 '오늘 이 숫자 하나만 알면 됩니다'라고 약속하세요.",
+          "visual_style": "글씨는 크고 또렷하게, 배경은 단순하게 하세요. 공식 발표문이나 안내 표 화면을 띄우고 중요한 숫자에 동그라미와 확대 효과를 주세요.",
+          "copy_action": "오늘 보건복지부·국민연금공단 공식 발표 자료로 숫자를 먼저 확인한 뒤, '○○년생, 이 금액 넘으면 ○○' 제목 틀로 숫자 하나를 정확히 짚는 대본 1편 쓰기."
+        },
+        {
+          "category_id": "cat_global",
+          "category_name": "해외 대박 빈집",
+          "category_emoji": "🌍",
+          "category_color": "#d97706",
+          "category_bg": "#fffbeb",
+          "title": "Shipwreck Horror: The unbelievable fight to survive | Sunday Night Archive",
+          "channel": "7 News Spotlight",
+          "view_count": 825402,
+          "url": "https://www.youtube.com/watch?v=B9OVW3Oceoc",
+          "planning": "생존 이야기는 '사고 순간, 버티는 싸움, 구조' 3단계로 판을 짜면 시청자가 끝까지 응원하며 따라와요. 영어 방송이라 한국어 해설을 입히면 경쟁이 적은 '빈집'을 먼저 차지할 수 있어요.",
+          "keywords": "'난파선(Shipwreck: 부서진 배)'(큰 사고라 시선이 쏠림), '공포(Horror)'(무서운 상황이 궁금함), '믿을 수 없는(unbelievable)'(놀라운 이야기라는 약속), '살아남다(survive)'(결말이 궁금함)",
+          "issue": "'나라면 저 상황에서 살아남을 수 있을까?'라는 상상은 누구나 하게 돼요. 그래서 실제 생존자 이야기에 빠져들어요.",
+          "hook_0s": "0초에 가장 위험한 바다 장면을 먼저 보여 주고 '이 사람들은 살아 돌아올 수 있었을까요?'라는 질문으로 시작하세요.",
+          "visual_style": "당시 뉴스 화면, 사고 지점 지도, 생존자 인터뷰를 대사 줄마다 1:1로 붙이고 영어 대사에는 읽기 쉬운 한국어 자막을 다세요. 원본만 틀지 말고 내 해설을 꼭 섞어요.",
+          "copy_action": "오늘 해외 방송의 생존 실화 1편을 골라 '사고, 버팀, 구조' 3칸으로 나누고, 칸마다 붙일 실제 자료(뉴스, 지도, 인터뷰)를 하나씩 적어 보기."
+        }
+      ]
+    }
+  }
+}</script>
+  <script>
+    const ARCHIVE = JSON.parse(document.getElementById("daily-data").textContent);
+    const DATES = Object.keys(ARCHIVE.editions || {}).sort().reverse();
+    let currentDate = DATES[0];
+    let currentCat = "ALL";
+
+    function esc(s) {
+      return String(s ?? "")
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;");
+    }
+
+    function fmtNum(n) {
+      if (n === null || n === undefined || n === "") return "-";
+      const num = Number(n);
+      if (Number.isNaN(num)) return String(n);
+      if (num >= 10000) return (num / 10000).toFixed(1).replace(/\.0$/, "") + "만";
+      return num.toLocaleString("ko-KR");
+    }
+
+    function renderDatePills() {
+      const box = document.getElementById("date-pills");
+      box.innerHTML = DATES.map((d, idx) => {
+        const ed = ARCHIVE.editions[d];
+        const label = idx === 0 ? `${d} (최신 제${ed.issue_no || 1}호)` : `${d} (제${ed.issue_no || 1}호)`;
+        return `<button class="date-pill ${d === currentDate ? "active" : ""}" onclick="selectDate('${d}')">${esc(label)}</button>`;
+      }).join("");
+    }
+
+    function selectDate(d) {
+      currentDate = d;
+      currentCat = "ALL";
+      renderEdition();
+    }
+
+    function selectCat(catId) {
+      currentCat = catId;
+      renderMaterials();
+      renderCatTabs();
+    }
+
+    function renderCatTabs() {
+      const ed = ARCHIVE.editions[currentDate];
+      const cats = [
+        { id: "ALL", label: `전체 보기 (${(ed.materials || []).length}개)` },
+        { id: "cat_movie", label: "🎬 옛날 외국 영화" },
+        { id: "cat_police", label: "🚔 미국 경찰 바디캠" },
+        { id: "cat_senior", label: "📺 어르신 거실 TV" },
+        { id: "cat_global", label: "🌍 해외 대박 빈집" }
+      ];
+      document.getElementById("cat-tabs").innerHTML = cats.map(c =>
+        `<button class="cat-tab ${currentCat === c.id ? "active" : ""}" onclick="selectCat('${c.id}')">${esc(c.label)}</button>`
+      ).join("");
+    }
+
+    function renderMaterials() {
+      const ed = ARCHIVE.editions[currentDate];
+      const list = (ed.materials || [])
+        .filter(m => currentCat === "ALL" || m.category_id === currentCat)
+        .slice()
+        .sort((a, b) => (b.total_score || 0) - (a.total_score || 0));
+
+      const tbody = document.getElementById("materials-tbody");
+      tbody.innerHTML = list.map((m, i) => {
+        const rank = i + 1;
+        const rCls = rank === 1 ? "rank-1" : rank === 2 ? "rank-2" : rank === 3 ? "rank-3" : "";
+        const s = m.scores || {};
+        return `
+          <tr>
+            <td><span class="rank-badge ${rCls}">${rank}위</span></td>
+            <td>
+              <span class="cat-pill" style="background:${esc(m.category_bg || '#eef2ff')};color:${esc(m.category_color || '#2563eb')};">
+                ${esc(m.category_emoji || '📌')} ${esc(m.category_name || '')}
+              </span>
+            </td>
+            <td>
+              <div class="score-big">${Number(m.total_score || 0).toFixed(1)}점</div>
+              <div class="score-sub">
+                후킹 ${Number(s.hook || 0).toFixed(1)} · 물증 ${Number(s.evidence || 0).toFixed(1)}<br/>
+                스토리 ${Number(s.story || 0).toFixed(1)} · 적합 ${Number(s.fit || 0).toFixed(1)}
+              </div>
+            </td>
+            <td>
+              <div class="mat-title">${esc(m.title)}</div>
+              <div class="mat-reason">💡 <strong>선정 근거:</strong> ${esc(m.reason)}</div>
+              <div class="mat-evidence">🎯 <strong>1:1 물증 매칭:</strong> ${esc(m.evidence_tip)}</div>
+              <div class="meta-chips">
+                <span class="meta-chip">📺 ${esc(m.channel || '-')}</span>
+                <span class="meta-chip">👀 조회수 ${fmtNum(m.view_count)}회</span>
+                <span class="meta-chip">⏱️ ${esc(m.duration_str || '-')}</span>
+                ${m.upload_date ? `<span class="meta-chip">📅 ${esc(m.upload_date)}</span>` : ""}
+              </div>
+            </td>
+            <td>
+              <a class="yt-btn" href="${esc(m.url)}" target="_blank" rel="noopener">▶ 보기</a>
+            </td>
+          </tr>
+        `;
+      }).join("");
+    }
+
+    function renderChannels() {
+      const ed = ARCHIVE.editions[currentDate];
+      const grid = document.getElementById("channels-grid");
+      grid.innerHTML = (ed.rising_channels || []).map(ch => `
+        <article class="channel-card">
+          <div class="ch-top">
+            <div>
+              <span class="cat-pill" style="background:${esc(ch.category_bg || '#eef2ff')};color:${esc(ch.category_color || '#2563eb')};margin-bottom:6px;">
+                ${esc(ch.category_emoji || '🔥')} ${esc(ch.category_name || '')}
+              </span>
+              <div class="ch-name">${esc(ch.channel_name)}</div>
+            </div>
+            ${ch.channel_url ? `<a class="yt-btn" href="${esc(ch.channel_url)}" target="_blank" rel="noopener">채널 가기</a>` : ""}
+          </div>
+          <div class="ch-stats">
+            <div class="ch-stat">
+              <div class="ch-stat-lbl">📅 개설/활동</div>
+              <div class="ch-stat-val">${esc(ch.created_info || '-')}</div>
+            </div>
+            <div class="ch-stat">
+              <div class="ch-stat-lbl">🎬 총 영상 수</div>
+              <div class="ch-stat-val">${esc(ch.video_count_str || '-')}</div>
+            </div>
+            <div class="ch-stat">
+              <div class="ch-stat-lbl">👥 구독자</div>
+              <div class="ch-stat-val">${esc(ch.subscribers_str || '-')}</div>
+            </div>
+            <div class="ch-stat">
+              <div class="ch-stat-lbl">⚡ 편당 평균뷰</div>
+              <div class="ch-stat-val">${esc(ch.avg_views_str || '-')}</div>
+            </div>
+          </div>
+          <div class="ch-why">
+            <strong>🧒 쉽게 풀이한 떡상 비결:</strong><br/>
+            ${esc(ch.easy_analysis)}
+          </div>
+          ${ch.top_video_title ? `
+            <div style="font-size:13.5px;color:var(--text-sub);">
+              🔥 대표 히트작:
+              <a href="${esc(ch.top_video_url || ch.channel_url || '#')}" target="_blank" rel="noopener" style="color:var(--primary);font-weight:700;">
+                ${esc(ch.top_video_title)}
+              </a>
+            </div>
+          ` : ""}
+        </article>
+      `).join("");
+    }
+
+    function renderDeepDives() {
+      const ed = ARCHIVE.editions[currentDate];
+      const box = document.getElementById("deep-container");
+      box.innerHTML = (ed.deep_dives || []).map((d, idx) => `
+        <article class="deep-card">
+          <div class="deep-head">
+            <div>
+              <span class="cat-pill" style="background:${esc(d.category_bg || '#eef2ff')};color:${esc(d.category_color || '#2563eb')};margin-bottom:6px;">
+                ${esc(d.category_emoji || '🔬')} 분석 #${idx + 1} · ${esc(d.category_name || '')}
+              </span>
+              <h3>${esc(d.title)}</h3>
+              <div style="font-size:13.5px;color:var(--text-muted);margin-top:4px;">
+                채널: <strong>${esc(d.channel || '-')}</strong> · 조회수 <strong>${fmtNum(d.view_count)}회</strong>
+              </div>
+            </div>
+            ${d.url ? `<a class="yt-btn" href="${esc(d.url)}" target="_blank" rel="noopener">▶ 원본 영상 보기</a>` : ""}
+          </div>
+          <div class="six-grid">
+            <div class="six-box">
+              <div class="six-lbl">🎯 ① 기획 (판 짜기)</div>
+              <div class="six-txt">${esc(d.planning)}</div>
+            </div>
+            <div class="six-box">
+              <div class="six-lbl">🔑 ② 키워드 (클릭 마법 단어)</div>
+              <div class="six-txt">${esc(d.keywords)}</div>
+            </div>
+            <div class="six-box">
+              <div class="six-lbl">🔥 ③ 이슈 (지금 왜 궁금할까?)</div>
+              <div class="six-txt">${esc(d.issue)}</div>
+            </div>
+            <div class="six-box">
+              <div class="six-lbl">⚡ ④ 0초 후킹 (첫 3초 붙잡기)</div>
+              <div class="six-txt">${esc(d.hook_0s)}</div>
+            </div>
+            <div class="six-box">
+              <div class="six-lbl">🎨 ⑤ 영상미 (화면·편집 비법)</div>
+              <div class="six-txt">${esc(d.visual_style)}</div>
+            </div>
+            <div class="six-box action-box">
+              <div class="six-lbl">✅ ⑥ 오늘 당장 카피할 1줄 액션</div>
+              <div class="six-txt"><strong>${esc(d.copy_action)}</strong></div>
+            </div>
+          </div>
+        </article>
+      `).join("");
+    }
+
+    function renderEdition() {
+      const ed = ARCHIVE.editions[currentDate];
+      if (!ed) return;
+      document.getElementById("issue-badge").textContent = `제${ed.issue_no || 1}호 · ${currentDate} 발행 (${ed.generated_at || ''})`;
+      document.getElementById("engine-badge").textContent = ed.scoring_badge || "Jev 100점 + AI 심층 해부";
+      document.getElementById("summary-points").innerHTML = (ed.easy_summary || []).map(p => `<li>${esc(p)}</li>`).join("");
+      renderDatePills();
+      renderCatTabs();
+      renderMaterials();
+      renderChannels();
+      renderDeepDives();
+    }
+
+    renderEdition();
+  </script>
+</body>
+</html>

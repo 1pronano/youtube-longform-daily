@@ -1,0 +1,68 @@
+{
+  "site_title": "유튜브 롱폼 데일리 브리핑",
+  "site_url": "https://1pronano.github.io/youtube-longform-daily/",
+  "guide_url": "https://1pronano.github.io/youtube-longform-guide/",
+  "schedule_kst": "매일 오후 1시 (13:00 KST)",
+  "categories": [
+    {
+      "id": "cat_movie",
+      "emoji": "🎬",
+      "name": "옛날 외국 영화",
+      "short_name": "옛날 영화",
+      "channel_desc": "2010년 이전 옛날 외국 영화(구작) 결말포함 롱폼 해설·리뷰 채널",
+      "color": "#4f46e5",
+      "bg": "#eef2ff",
+      "queries": [
+        "결말포함 옛날 외국 영화 리뷰 20분",
+        "명작 영화 결말포함 복수극 롱폼"
+      ],
+      "min_duration_sec": 600
+    },
+    {
+      "id": "cat_police",
+      "emoji": "🚔",
+      "name": "미국 경찰 바디캠",
+      "short_name": "미국 경찰 바디캠",
+      "channel_desc": "미국 경찰 바디캠(Bodycam) 실제 사건·수사·반전 실화 롱폼 다큐 채널",
+      "color": "#2563eb",
+      "bg": "#eff6ff",
+      "queries": [
+        "미국 경찰 바디캠 실화 풀영상",
+        "police bodycam full footage arrest interrogation"
+      ],
+      "min_duration_sec": 600
+    },
+    {
+      "id": "cat_senior",
+      "emoji": "📺",
+      "name": "어르신 거실 TV",
+      "short_name": "어르신 거실 TV",
+      "channel_desc": "6070 시니어 어르신이 거실 TV로 오래 보는 국민연금·건강·국제정세·역사 롱폼 채널",
+      "color": "#16a34a",
+      "bg": "#f0fdf4",
+      "queries": [
+        "국민연금 건강보험료 시니어 필수 정보",
+        "국제정세 역사 다큐 6070 롱폼"
+      ],
+      "min_duration_sec": 600
+    },
+    {
+      "id": "cat_global",
+      "emoji": "🌍",
+      "name": "해외 대박 빈집",
+      "short_name": "해외 대박 빈집",
+      "channel_desc": "해외에서 수백만 뷰가 터졌지만 한국엔 아직 경쟁이 적은 해외 실화·미스터리·과학·역사 다큐 빈집 롱폼 채널",
+      "color": "#d97706",
+      "bg": "#fffbeb",
+      "queries": [
+        "unbelievable true story documentary full",
+        "bizarre mystery history documentary 2026"
+      ],
+      "min_duration_sec": 600
+    }
+  ],
+  "search_per_query": 5,
+  "top_materials_per_category": 3,
+  "max_rising_channels": 6,
+  "max_deep_dives": 4
+}
